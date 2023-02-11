@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import { Client, GatewayIntentBits, REST, Routes } from 'discord.js'
 import commands from "./commands/commands.json"
 import { generateTokenCommand } from './commands/generatetoken'
+import { deleteTokenCommand } from './commands/deleteToken'
 dotenv.config()
 
 const client: Client = new Client({
@@ -44,6 +45,10 @@ client.on("interactionCreate", async (interaction) => {
     switch (interaction.commandName) {
         case "generatetoken": {
             await generateTokenCommand(interaction)
+            break
+        }
+        case "deletetoken": {
+            await deleteTokenCommand(interaction)
             break
         }
         default: {
