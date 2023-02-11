@@ -17,8 +17,6 @@ export async function generateTokenCommand(interaction: CommandInteraction) {
         }
     })).body.json()
 
-    console.log(token);
-
     const errorDesc = `There was an error, please read the message:
     **_${token.message}_**
     `
@@ -35,7 +33,12 @@ export async function generateTokenCommand(interaction: CommandInteraction) {
         title: `Token generation for **${interaction.user.tag}**`,
         color: 0x8689D1,
         description: token.message ? errorDesc : normalDesc,
+        thumbnail: {
+            url: interaction.user.avatarURL({ extension: "webp", size: 128 }) ?? "",
+            height: 128,
+            width: 128
+        }
     }
 
-    return interaction.reply({ embeds: [embed] })
+    return await interaction.reply({ embeds: [embed], ephemeral: true })
 }
